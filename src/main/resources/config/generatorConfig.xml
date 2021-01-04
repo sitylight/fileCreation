@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<!--    1.MyBatis3Simple，代表不生成Example文件。-->
+<!--    2.MyBatis3，MyBatis3代表生成Example文件&ndash;&gt;-->
+    <context id="DB2Tables" targetRuntime="MyBatis3Simple">
+        <!-- 生成mysql带有分页的sql的插件  这个可以自己写，-->
+<!--        <plugin type="generator.MysqlPaginationPlugin" />-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <plugin type="com.rabbitchop.config.LombokPlugin"/>
+        <!-- 自定义的注释规则，继承 DefaultCommentGenerator 重写 一些方法 -->
+        <commentGenerator type="com.rabbitchop.config.NewbatisGenerator">
+            <!-- 是否去除自动生成日期的注释 true：是 ： false:否 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除所有自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+
+
+        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://localhost:5432/rabbitchop"
+                        userId="rabbitchop"
+                        password="p">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+        <!--生成entity类存放位置-->
+        <javaModelGenerator targetPackage="com.rabbitchop.model.entity.intermediate" targetProject="C:\Users\derrick\projects\fileCreation\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.rabbitchop.base.BaseMerchantEntity"/>
+        </javaModelGenerator>
+        <!--生成映射文件存放位置-->
+        <!--<sqlMapGenerator targetPackage="com.rabbitchop.mapper" targetProject="C:\Users\derrick\cityline\mybatis-generator\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>-->
+        <!--生成Dao类存放位置-->
+        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="com.rabbitchop.dao"
+                             targetProject="C:\Users\derrick\cityline\mybatis-generator\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>-->
+        <table tableName="tbl_member_campaign" domainObjectName="MemberCampaign"/>
+        <table tableName="tbl_member_coupon" domainObjectName="MemberCoupon"/>
+        <table tableName="tbl_member_voucher" domainObjectName="MemberVoucher"/>
+<!--        <table tableName="tbl_coupon_usage_record" domainObjectName="CouponUsageRecord"/>-->
+<!--        <table tableName="tbl_coupon_usage_log" domainObjectName="CouponUsageLog"/>-->
+    </context>
+</generatorConfiguration>

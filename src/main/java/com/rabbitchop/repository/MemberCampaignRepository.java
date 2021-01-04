@@ -1,6 +1,6 @@
 package com.rabbitchop.repository;
 
-import com.rabbitchop.model.entity.MemberCampaign;
+import com.rabbitchop.model.entity.intermediate.MemberCampaign;
 
 /**
  * @author "derrick"

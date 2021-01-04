@@ -1,5 +1,6 @@
 package com.rabbitchop.utils;
 
+import com.google.common.collect.Lists;
 import com.rabbitchop.base.BaseService;
 import com.rabbitchop.base.BaseServiceImpl;
 import com.rabbitchop.base.CustomMapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.lang.model.element.Modifier;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author derrick
@@ -27,16 +29,23 @@ public class JavaGenerator {
     private static final String ENTITY_NAME = "com.rabbitchop.model.entity.MemberCampaign";
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        List<String> entities = Lists.newArrayList(
+                "com.rabbitchop.model.entity.intermediate.MemberCampaign",
+                "com.rabbitchop.model.entity.intermediate.MemberCoupon",
+                "com.rabbitchop.model.entity.intermediate.MemberVoucher");
         File fileDir = new File("src/main/java/");
         if (!fileDir.exists()) {
             fileDir.mkdir();
         }
-        Class<?> classz = Class.forName(ENTITY_NAME);
-        createRepository(classz, REPOSITORY_PACKAGE, fileDir);
-        createMapper(classz, MAPPER_PACKAGE, fileDir);
-        createRepositoryImpl(classz, REPOSITORY_IMPL_PACKAGE, fileDir);
-        createServiceInterface(classz, SERVICE_PACKAGE, fileDir);
-        createServiceImpl(classz, SERVICE_IMPL_PACKAGE, fileDir);
+        for (String entity : entities) {
+            Class<?> classz = Class.forName(entity);
+            createRepository(classz, REPOSITORY_PACKAGE, fileDir);
+            createMapper(classz, MAPPER_PACKAGE, fileDir);
+            createRepositoryImpl(classz, REPOSITORY_IMPL_PACKAGE, fileDir);
+            //        createServiceInterface(classz, SERVICE_PACKAGE, fileDir);
+            //        createServiceImpl(classz, SERVICE_IMPL_PACKAGE, fileDir);
+
+        }
     }
 
     private static void createRepository(Class<?> classz, String packageName, File folder) throws IOException {
